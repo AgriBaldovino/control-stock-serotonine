@@ -5,10 +5,9 @@
         Stock Serotonine - Nueva Cordoba
       </v-card-title>
 
-      <!-- Contenedor de 4 columnas para búsqueda, filtros y botón -->
       <v-container class="pa-0 pb-4">
         <v-row>
-          <!-- Buscador -->
+          
           <v-col cols="12" sm="6" md="6">
             <v-text-field
               v-model="search"
@@ -21,7 +20,6 @@
             ></v-text-field>
           </v-col>
           
-          <!-- Filtros -->
           <v-col cols="12" sm="6" md="3">
             <v-select
               v-model="stockFilter"
@@ -33,7 +31,6 @@
             ></v-select>
           </v-col>
           
-          <!-- Botón Agregar -->
           <v-col cols="12" sm="12" md="3">
             <v-btn
               color="primary"
@@ -102,7 +99,6 @@
       </v-data-table>
     </v-card>
 
-    <!-- Diálogo para editar stock -->
     <v-dialog v-model="editDialog" max-width="400px">
       <v-card>
         <v-card-title class="text-h5">
@@ -140,7 +136,6 @@
       </v-card>
     </v-dialog>
 
-    <!-- Diálogo para agregar producto -->
     <v-dialog v-model="addDialog" max-width="500px">
       <v-card>
         <v-card-title class="text-h5">
@@ -199,7 +194,6 @@
       </v-card>
     </v-dialog>
 
-    <!-- Diálogo de confirmación para eliminar -->
     <v-dialog v-model="deleteDialog" max-width="400px">
       <v-card>
         <v-card-title class="text-h5">
@@ -439,7 +433,7 @@ onMounted(() => {
   gap: 0.5px;
 }
 
-/* Estilos responsive */
+
 @media (max-width: 600px) {
   .stock-table :deep(th),
   .stock-table :deep(td) {

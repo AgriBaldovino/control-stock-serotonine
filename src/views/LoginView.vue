@@ -63,7 +63,6 @@ const login = async () => {
     const userCredential = await signInWithEmailAndPassword(auth, email.value, password.value)
     const user = userCredential.user
     
-    // Guardar el token de autenticación
     const token = await user.getIdToken()
     localStorage.setItem('authToken', token)
     
