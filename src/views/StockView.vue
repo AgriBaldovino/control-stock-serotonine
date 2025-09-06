@@ -52,7 +52,7 @@
         :items-per-page="10"
         class="elevation-1 recipes-table"
         hover
-        mobile-breakpoint="0"
+        mobile-breakpoint="600"
         show-expand
         :expanded="expanded"
         @update:expanded="expanded = $event"
@@ -100,30 +100,32 @@
         </template>
         <template v-slot:expanded-row="{ item }">
           <tr>
-            <td :colspan="headers.length" class="pa-4">
-              <v-card flat class="ma-2">
-                <v-card-text>
+            <td :colspan="headers.length" class="pa-2 pa-sm-4">
+              <v-card flat class="ma-1 ma-sm-2">
+                <v-card-text class="pa-2 pa-sm-4">
                   <v-row>
                     <v-col cols="12" md="6">
-                      <h4 class="text-h6 mb-3 text-primary">📋 Ingredientes</h4>
+                      <h4 class="text-subtitle-1 mb-2 text-primary">📋 Ingredientes</h4>
                       <div class="ingredients-text">{{ item.ingredientes || 'No especificado' }}</div>
                     </v-col>
                     <v-col cols="12" md="6">
-                      <h4 class="text-h6 mb-3 text-primary">👨‍🍳 Instrucciones</h4>
+                      <h4 class="text-subtitle-1 mb-2 text-primary">👨‍🍳 Instrucciones</h4>
                       <div class="instructions-text">{{ item.instrucciones || 'No especificado' }}</div>
                     </v-col>
                   </v-row>
-                  <v-row class="mt-4" v-if="item.resistencia">
+                  <v-row class="mt-2 mt-sm-4" v-if="item.resistencia">
                     <v-col cols="12">
-                      <h4 class="text-h6 mb-2 text-primary">🔥 Información del Horno</h4>
-                      <v-chip color="orange" text-color="white" class="mr-2">
-                        <v-icon start>mdi-thermometer</v-icon>
-                        {{ item.temperatura || 'No especificado' }}
-                      </v-chip>
-                      <v-chip color="red" text-color="white">
-                        <v-icon start>mdi-fire</v-icon>
-                        {{ item.resistencia || 'No especificado' }}
-                      </v-chip>
+                      <h4 class="text-subtitle-1 mb-2 text-primary">🔥 Información del Horno</h4>
+                      <div class="d-flex flex-wrap gap-1">
+                        <v-chip color="orange" text-color="white" size="small" class="mb-1">
+                          <v-icon start size="small">mdi-thermometer</v-icon>
+                          {{ item.temperatura || 'No especificado' }}
+                        </v-chip>
+                        <v-chip color="red" text-color="white" size="small" class="mb-1">
+                          <v-icon start size="small">mdi-fire</v-icon>
+                          {{ item.resistencia || 'No especificado' }}
+                        </v-chip>
+                      </div>
                     </v-col>
                   </v-row>
                   <!-- FOTOS COMENTADAS - Se implementarán más adelante
@@ -319,7 +321,7 @@
                               </v-btn>
                             </v-card-actions>
                           </v-card>
-                        </v-col>
+              </v-col>
                       </v-row>
                     </div>
                   </v-card-text>
@@ -460,7 +462,7 @@
                               </v-btn>
                             </v-card-actions>
                           </v-card>
-                        </v-col>
+              </v-col>
                       </v-row>
                     </div>
                   </v-card-text>
@@ -855,8 +857,8 @@ onMounted(() => {
       recipes.value = Object.entries(data).map(([id, item]) => {
         console.log('Receta cargada:', item.nombre)
         return {
-          id,
-          ...item
+        id,
+        ...item
         }
       })
     } else {
@@ -912,6 +914,9 @@ onMounted(() => {
   border-radius: 8px;
   border-left: 4px solid #1976d2;
   font-size: 0.95rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .ingredients-text {
@@ -941,27 +946,61 @@ onMounted(() => {
 @media (max-width: 600px) {
   .recipes-table :deep(th),
   .recipes-table :deep(td) {
-    padding: 8px !important;
-    font-size: 0.875rem !important;
+    padding: 6px !important;
+    font-size: 0.8rem !important;
   }
 
   .v-card-title {
-    font-size: 1.25rem !important;
+    font-size: 1.1rem !important;
+    padding: 12px 16px !important;
   }
 
   .v-btn {
-    min-width: 32px !important;
+    min-width: 28px !important;
+    height: 28px !important;
   }
 
   .v-text-field,
   .v-select {
-    font-size: 0.875rem !important;
+    font-size: 0.8rem !important;
   }
 
   .ingredients-text,
   .instructions-text {
-    font-size: 0.85rem !important;
+    font-size: 0.8rem !important;
+    padding: 10px !important;
+    line-height: 1.5 !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+
+  .v-container {
     padding: 8px !important;
+  }
+
+  .v-card {
+    margin: 4px !important;
+  }
+
+  .v-data-table {
+    font-size: 0.8rem !important;
+  }
+
+  .v-data-table :deep(.v-data-table__wrapper) {
+    overflow-x: auto !important;
+  }
+
+  .d-flex.flex-wrap.gap-1 {
+    gap: 4px !important;
+  }
+
+  .v-chip {
+    font-size: 0.7rem !important;
+    height: 24px !important;
+  }
+
+  .v-chip .v-icon {
+    font-size: 0.7rem !important;
   }
 }
 
@@ -969,17 +1008,71 @@ onMounted(() => {
   .recipes-table :deep(th),
   .recipes-table :deep(td) {
     padding: 4px !important;
-    font-size: 0.75rem !important;
+    font-size: 0.7rem !important;
   }
 
   .v-card-title {
-    font-size: 1.1rem !important;
+    font-size: 1rem !important;
+    padding: 8px 12px !important;
   }
 
   .v-text-field,
   .v-select {
-    font-size: 0.75rem !important;
+    font-size: 0.7rem !important;
+  }
+
+  .ingredients-text,
+  .instructions-text {
+    font-size: 0.7rem !important;
+    padding: 8px !important;
+    line-height: 1.4 !important;
+  }
+
+  .v-container {
+    padding: 4px !important;
+  }
+
+  .v-card {
+    margin: 2px !important;
+  }
+
+  .v-btn {
+    min-width: 24px !important;
+    height: 24px !important;
+    font-size: 0.7rem !important;
+  }
+
+  .v-data-table {
+    font-size: 0.7rem !important;
+  }
+}
+
+/* Media query específico para iPhone 16 y pantallas similares */
+@media (max-width: 393px) and (max-height: 852px) {
+  .v-container {
+    padding: 2px !important;
+  }
+
+  .v-card {
+    margin: 1px !important;
+  }
+
+  .ingredients-text,
+  .instructions-text {
+    font-size: 0.65rem !important;
+    padding: 6px !important;
+    line-height: 1.3 !important;
+  }
+
+  .recipes-table :deep(th),
+  .recipes-table :deep(td) {
+    padding: 2px !important;
+    font-size: 0.65rem !important;
+  }
+
+  .v-card-title {
+    font-size: 0.9rem !important;
+    padding: 6px 8px !important;
   }
 }
 </style>
-  
